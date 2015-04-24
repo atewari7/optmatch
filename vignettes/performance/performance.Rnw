@@ -12,7 +12,7 @@
 library(optmatch)
 @
 
-The goal of this document is provide some basic performance testing of the
+The goal of this document is to provide some basic performance testing of the
 \texttt{optmatch} package. In most matching workflows, a user first creates
 distances, produces one or more matches, assesses balance on a given match,
 and, provided balance meets necessary requirements, proceeds to analysis. Of
@@ -27,8 +27,8 @@ implements it for the distance creation and matching routines in
 \texttt{R} provides built in execution profiling through the \texttt{Rprof}
 function (and a similarly named command line option). When invoked, this
 function regularly interrupts normal processing and writes out the current
-call stack to a file. This information can be used to attribute the portion of
-run time attributable different functions.
+call stack to a file. This information can be used to attribute a portion of
+run time to each function called.
 
 <<echo = F>>=
 library(profr)

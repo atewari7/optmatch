@@ -86,6 +86,7 @@ fmatch <- function(distance, max.row.units, max.col.units,
   # supply
   b <- c(rep(mxc, nt), rep(0, nc), -(mxc * nt - round(f * nc)), -round(f * nc))
 
+  print(system.time({
   # If the user specifies using the old version of the relax algorithm. The `if` will be
   # FALSE if use_fallback_optmatch_solver is anything but TRUE, including NULL.
   # We have to duplicate the .Fortran code to make R CMD Check not complain about "registration" problems
@@ -122,6 +123,7 @@ fmatch <- function(distance, max.row.units, max.col.units,
                     DUP = TRUE,
                     PACKAGE = "optmatch")
   }
+  }))
 
 
   feas <- fop$feasible1 & ((mnc*nt <= round(f*nc) & mxc*nt >= round(f*nc)) |

@@ -89,47 +89,9 @@ fmatch <- function(distance, max.row.units, max.col.units,
   # If the user specifies using the old version of the relax algorithm. The `if` will be
   # FALSE if use_fallback_optmatch_solver is anything but TRUE, including NULL.
   # We have to duplicate the .Fortran code to make R CMD Check not complain about "registration" problems
-  if (identical(options()$use_fallback_optmatch_solver, TRUE)) {
-    fop <- .Fortran("relaxalgold",
-                    as.integer(nc + nt + 2),
-                    as.integer(length(startn)),
-                    as.integer(startn),
-                    as.integer(endn),
-                    as.integer(dists),
-                    as.integer(ucap),
-                    as.integer(b),
-                    x1=integer(length(startn)),
-                    crash1=as.integer(0),
-                    large1=as.integer(.Machine$integer.max/4),
-                    feasible1=integer(1),
-                    NAOK = FALSE,
-                    DUP = TRUE,
-                    PACKAGE = "optmatch")
-  } else {
-    fop <- .Fortran("relaxalg",
-                    as.integer(nc + nt + 2),
-                    as.integer(length(startn)),
-                    as.integer(startn),
-                    as.integer(endn),
-                    as.integer(dists),
-                    as.integer(ucap),
-                    as.integer(b),
-                    x1=integer(length(startn)),
-                    crash1=as.integer(0),
-                    large1=as.integer(.Machine$integer.max/4),
-                    feasible1=integer(1),
-                    NAOK = FALSE,
-                    DUP = TRUE,
-                    PACKAGE = "optmatch")
-  }
+  
+  dyn.load("minCostFlow.so")
+  ans <- .Call("minCostFlow", b, startn, endn, dists, ucap) 
 
-
-  feas <- fop$feasible1 & ((mnc*nt <= round(f*nc) & mxc*nt >= round(f*nc)) |
-            (round(f*nc) <= nt & round(f*nc)*mxr >= nt))
-
-  x <- feas * fop$x1 - (1 - feas)
-
-  ans <- numeric(narcs)
-  ans <- x[1:narcs]
   return(cbind(distance, solution = ans))
 }

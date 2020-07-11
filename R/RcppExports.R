@@ -9,6 +9,10 @@ ismOps <- function(o, a, b) {
     .Call(`_optmatch_ismOps`, o, a, b)
 }
 
+minFlow <- function(node_supplies, arc_src, arc_targ, arc_costs, arc_capacities) {
+    .Call(`_optmatch_minFlow`, node_supplies, arc_src, arc_targ, arc_costs, arc_capacities)
+}
+
 r_smahal <- function(index, data, z) {
     .Call(`_optmatch_r_smahal`, index, data, z)
 }

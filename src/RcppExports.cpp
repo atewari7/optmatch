@@ -31,6 +31,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// minFlow
+std::vector<int> minFlow(std::vector<int> node_supplies, std::vector<int> arc_src, std::vector<int> arc_targ, std::vector<int> arc_costs, std::vector<int> arc_capacities);
+RcppExport SEXP _optmatch_minFlow(SEXP node_suppliesSEXP, SEXP arc_srcSEXP, SEXP arc_targSEXP, SEXP arc_costsSEXP, SEXP arc_capacitiesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<int> >::type node_supplies(node_suppliesSEXP);
+    Rcpp::traits::input_parameter< std::vector<int> >::type arc_src(arc_srcSEXP);
+    Rcpp::traits::input_parameter< std::vector<int> >::type arc_targ(arc_targSEXP);
+    Rcpp::traits::input_parameter< std::vector<int> >::type arc_costs(arc_costsSEXP);
+    Rcpp::traits::input_parameter< std::vector<int> >::type arc_capacities(arc_capacitiesSEXP);
+    rcpp_result_gen = Rcpp::wrap(minFlow(node_supplies, arc_src, arc_targ, arc_costs, arc_capacities));
+    return rcpp_result_gen;
+END_RCPP
+}
 // r_smahal
 SEXP r_smahal(SEXP index, SEXP data, SEXP z);
 RcppExport SEXP _optmatch_r_smahal(SEXP indexSEXP, SEXP dataSEXP, SEXP zSEXP) {

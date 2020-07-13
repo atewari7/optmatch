@@ -90,7 +90,7 @@ fmatch <- function(distance, max.row.units, max.col.units,
   # FALSE if use_fallback_optmatch_solver is anything but TRUE, including NULL.
   # We have to duplicate the .Fortran code to make R CMD Check not complain about "registration" problems
   
-  dyn.load("minCostFlow.so")
+  dyn.load("../../src/minCostFlow.so")
   ans <- .Call("minCostFlow", b, startn, endn, dists, ucap) 
 
   return(cbind(distance, solution = ans))

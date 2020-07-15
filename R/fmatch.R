@@ -86,12 +86,7 @@ fmatch <- function(distance, max.row.units, max.col.units,
   # supply
   b <- c(rep(mxc, nt), rep(0, nc), -(mxc * nt - round(f * nc)), -round(f * nc))
 
-  # If the user specifies using the old version of the relax algorithm. The `if` will be
-  # FALSE if use_fallback_optmatch_solver is anything but TRUE, including NULL.
-  # We have to duplicate the .Fortran code to make R CMD Check not complain about "registration" problems
-  
-  dyn.load("../../src/minCostFlow.so")
-  ans <- .Call("minCostFlow", b, startn, endn, dists, ucap) 
+  ans <- minFlow(b, startn, endn, dists, ucap)
 
   return(cbind(distance, solution = ans))
 }

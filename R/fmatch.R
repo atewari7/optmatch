@@ -88,5 +88,16 @@ fmatch <- function(distance, max.row.units, max.col.units,
 
   ans <- minFlow(b, startn, endn, dists, ucap)
 
+  # fop$feasible1 was a binary returned by the FORTRAN, need to figure out
+  # what it meant (was it simply a flag for whether an answer was found?
+  fop_feasible1 <- TRUE
+  feas <- fop_feasible1 & ((mnc*nt <= round(f*nc) & mxc*nt >= round(f*nc)) |
+                             (round(f*nc) <= nt & round(f*nc)*mxr >= nt))
+
+  x <- feas * ans - (1 - feas)
+
+  ans <- numeric(narcs)
+  ans <- x[1:narcs]
+
   return(cbind(distance, solution = ans))
 }
